@@ -1,0 +1,65 @@
+/* Figma «Toggle»: 72×32, radius 16, кружок 24px, иконки 24px (accent, opacity 70%). */
+.toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 72px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-button-low);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.toggle:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.knob {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-button-medium);
+  transition: transform 200ms ease;
+}
+
+.icon {
+  position: absolute;
+  top: 4px;
+  width: 24px;
+  height: 24px;
+  color: var(--color-accent);
+  opacity: 0.7;
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease;
+}
+
+.sun {
+  left: 8px;
+}
+
+.moon {
+  left: 40px;
+}
+
+/* Тёмная: кружок слева, луна справа; солнце уехало влево. */
+.dark .sun {
+  transform: translateX(-40px);
+  opacity: 0;
+}
+
+/* Светлая: кружок справа, солнце слева; луна уехала вправо. */
+.light .knob {
+  transform: translateX(40px);
+}
+
+.light .moon {
+  transform: translateX(40px);
+  opacity: 0;
+}

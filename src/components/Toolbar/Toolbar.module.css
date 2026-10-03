@@ -1,0 +1,64 @@
+/* На узких экранах переключатель темы — по центру свободного места,
+   с 440px — строго по центру, как в макете. */
+.toolbar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+}
+
+@media (min-width: 440px) {
+  .toolbar {
+    grid-template-columns: 1fr auto 1fr;
+  }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.history {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.history svg {
+  width: 24px;
+  height: 24px;
+}
+
+@media (hover: hover) {
+  .history:hover {
+    background: var(--color-button-low);
+    color: var(--color-text);
+  }
+}
+
+.history:active {
+  background: var(--color-button-low);
+}
+
+.history:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}

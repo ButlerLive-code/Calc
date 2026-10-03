@@ -1,0 +1,54 @@
+/*
+ * Одна колонка до 768px по центру. Высота кнопок подстраивается под высоту
+ * экрана, чтобы всё помещалось без прокрутки (макет: 375×812, кнопки 72px).
+ */
+.calculator {
+  --button-height: clamp(52px, calc((100dvh - 330px) / 5), var(--size-button));
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-keypad);
+  width: 100%;
+  max-width: var(--max-width-app);
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: var(--padding-page);
+  padding-top: max(var(--padding-page), env(safe-area-inset-top));
+  padding-bottom: max(var(--padding-page), env(safe-area-inset-bottom));
+}
+
+.scientific {
+  --button-height: clamp(44px, calc((100dvh - 450px) / 5), var(--size-button-scientific));
+}
+
+.keypads {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-keypad);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Низкие экраны (iPhone SE, 8 и т.п.): инженерный режим без прокрутки */
+@media (max-height: 700px) {
+  .calculator {
+    --gap-keypad: 10px;
+    --gap-keypad-compact: 8px;
+    --size-button-compact: 36px;
+    --padding-page: 12px;
+  }
+
+  .scientific {
+    --button-height: clamp(38px, calc((100dvh - 390px) / 5), var(--size-button-scientific));
+  }
+}

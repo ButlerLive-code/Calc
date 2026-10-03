@@ -1,0 +1,53 @@
+/*
+ * Размер шрифта подбирается по числу символов (--chars) и ширине контейнера,
+ * поэтому длинные числа уменьшаются и не выходят за край.
+ * 0.6em — средняя ширина цифры Work Sans Light с запасом.
+ */
+.display {
+  --result-max: var(--font-size-result);
+  --expression-max: var(--font-size-expression);
+
+  container-type: inline-size;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--gap-display);
+  min-height: 0;
+  padding-bottom: var(--gap-keypad);
+  overflow: hidden;
+  text-align: right;
+}
+
+.scientific {
+  --result-max: 64px;
+  --expression-max: 28px;
+
+  gap: 8px;
+}
+
+.expression,
+.value {
+  font-weight: var(--font-weight-light);
+  white-space: nowrap;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+
+.expression {
+  min-height: 1.2em;
+  font-size: clamp(18px, calc(100cqi / (var(--chars) * 0.6)), var(--expression-max));
+  line-height: 1.2;
+  color: var(--color-text-muted);
+  white-space: normal;
+}
+
+.value {
+  font-size: min(var(--result-max), calc(100cqi / (var(--chars) * 0.6)));
+  line-height: 1;
+  min-height: 1em;
+}
+
+.error {
+  white-space: normal;
+}

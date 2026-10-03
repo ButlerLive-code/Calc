@@ -1,0 +1,97 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  height: var(--button-height, var(--size-button));
+  padding: 0 4px;
+  border: none;
+  border-radius: var(--radius-button);
+  font-size: var(--button-font-size, var(--font-size-button));
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-button);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  position: relative;
+  isolation: isolate;
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+/* Наложение для hover/active — одинаково работает на любом фоне. */
+.button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  transition: background-color var(--transition-fast);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .button:hover::after {
+    background: var(--color-overlay-hover);
+  }
+}
+
+.button:active {
+  transform: scale(0.96);
+}
+
+.button:active::after {
+  background: var(--color-overlay-active);
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.button svg {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.high {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.high:focus-visible {
+  outline-color: var(--color-text);
+}
+
+.medium {
+  background: var(--color-button-medium);
+  color: var(--color-text);
+}
+
+.low {
+  background: var(--color-button-low);
+  color: var(--color-text);
+}
+
+.compact {
+  height: var(--size-button-compact);
+  border-radius: calc(var(--radius-button) * 0.66);
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.compact svg {
+  width: 22px;
+  height: 22px;
+}
+
+.wide {
+  grid-column: span 2;
+}
+
+.button[aria-pressed='true'] {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}

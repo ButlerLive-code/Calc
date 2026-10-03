@@ -1,0 +1,43 @@
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--gap-keypad-compact);
+}
+
+.angle {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  min-width: 0;
+  height: var(--size-button-compact);
+  padding: 0;
+  border: none;
+  border-radius: calc(var(--radius-button) * 0.66);
+  background: var(--color-button-low);
+  color: var(--color-text);
+  font-size: 13px;
+  line-height: 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform var(--transition-fast);
+}
+
+.angle:active {
+  transform: scale(0.96);
+}
+
+.angle:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.angleActive {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.angleInactive {
+  color: var(--color-text-muted);
+}

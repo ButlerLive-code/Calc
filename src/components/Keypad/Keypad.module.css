@@ -1,0 +1,11 @@
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gap-keypad);
+}
+
+@media (max-width: 359px) {
+  .keypad {
+    gap: var(--gap-keypad-compact);
+  }
+}

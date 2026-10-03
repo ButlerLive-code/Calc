@@ -1,0 +1,88 @@
+/* Дизайн-токены из Figma: "Responsive Calculator App (Community)" */
+:root {
+  --color-accent: #4b5efc; /* Button / High Emphasis */
+  --color-accent-hover: #6273fd;
+  --color-on-accent: #ffffff;
+  --color-focus: #4b5efc;
+
+  /* Шрифт: Work Sans (подключается в components/Calculator) */
+  --font-family: 'Work Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-size-result: 96px; /* Numbers / result, line-height 96 */
+  --font-size-expression: 40px; /* Numbers / expression, opacity 40% */
+  --font-size-button: 32px; /* Button text, line-height 40 */
+  --line-height-button: 40px;
+
+  --radius-button: 24px;
+  --radius-pill: 16px;
+  --gap-keypad: 16px;
+  --gap-keypad-compact: 12px;
+  --gap-display: 16px;
+  --size-button: 72px;
+  --size-button-scientific: 60px;
+  --size-button-compact: 46px;
+  --padding-page: 20px;
+  --max-width-app: 768px;
+
+  --transition-fast: 120ms ease;
+}
+
+:root,
+:root[data-theme='dark'] {
+  --color-bg: #17171c;
+  --color-text: #ffffff;
+  --color-text-muted: rgb(255 255 255 / 40%);
+  --color-button-medium: #4e505f;
+  --color-button-low: #2e2f38;
+  --color-overlay-hover: rgb(255 255 255 / 8%);
+  --color-overlay-active: rgb(255 255 255 / 16%);
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --color-bg: #f1f2f3;
+  --color-text: #000000;
+  --color-text-muted: rgb(0 0 0 / 40%);
+  --color-button-medium: #d2d3da;
+  --color-button-low: #ffffff;
+  --color-overlay-hover: rgb(0 0 0 / 5%);
+  --color-overlay-active: rgb(0 0 0 / 10%);
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
