@@ -125,6 +125,48 @@ describe('Calculator', () => {
     expect(document.documentElement.dataset.theme).toBe('light');
   });
 
+  it('keeps an unfinished expression after a page reload', () => {
+    renderApp();
+    ['1', '2'].forEach(press);
+    press('Сложить');
+    press('3');
+
+    cleanup(); // «перезагрузка страницы»
+    renderApp();
+    expect(expression()).toBe('12+3');
+    expect(value()).toBe('3');
+
+    press('Равно');
+    expect(value()).toBe('15');
+  });
+
+  it('keeps the result after reload without duplicating it in history', () => {
+    renderApp();
+    press('2');
+    press('Сложить');
+    press('3');
+    press('Равно');
+
+    cleanup();
+    renderApp();
+    expect(value()).toBe('5');
+    expect(JSON.parse(localStorage.getItem('calc:history'))).toHaveLength(1);
+
+    // новое вычисление после перезагрузки записывается как обычно
+    press('Умножить');
+    press('2');
+    press('Равно');
+    expect(JSON.parse(localStorage.getItem('calc:history'))).toHaveLength(2);
+  });
+
+  it('starts from zero when the saved session is corrupted', () => {
+    localStorage.setItem('calc:session', '{"v":1,"tokens":"oops"');
+    renderApp();
+    expect(value()).toBe('0');
+    press('7');
+    expect(value()).toBe('7');
+  });
+
   it('does not store the system theme until the user picks one', () => {
     renderApp();
     expect(localStorage.getItem('calc:theme')).toBeNull();

@@ -3,8 +3,9 @@ import { CalculatorDispatchContext, CalculatorStateContext } from '../../hooks/u
 import { readStorage, writeStorage } from '../../hooks/useLocalStorage';
 import { ANGLE_UNIT, initialState, MODE } from '../../utils/calculator/model';
 import { calculatorReducer } from '../../utils/calculator/reducer';
+import { deserializeSession, serializeSession, SESSION_STORAGE_KEY } from '../../utils/calculator/session';
 
-/** Сохраняются только настройки (режим и единицы углов), не выражение. */
+/** Настройки (режим и единицы углов) — отдельно от выражения: их не сбрасывает "C". */
 export const SETTINGS_STORAGE_KEY = 'calc:settings';
 
 const isSettings = (value) =>
@@ -15,7 +16,12 @@ const isSettings = (value) =>
 
 function init(state) {
   const settings = readStorage(SETTINGS_STORAGE_KEY, null, isSettings);
-  return settings ? { ...state, mode: settings.mode, angleUnit: settings.angleUnit } : state;
+  const session = deserializeSession(readStorage(SESSION_STORAGE_KEY, null));
+  return {
+    ...state,
+    ...(settings && { mode: settings.mode, angleUnit: settings.angleUnit }),
+    ...session,
+  };
 }
 
 export function CalculatorProvider({ children }) {
@@ -25,6 +31,11 @@ export function CalculatorProvider({ children }) {
   useEffect(() => {
     writeStorage(SETTINGS_STORAGE_KEY, { mode, angleUnit });
   }, [mode, angleUnit]);
+
+  // Текущее выражение переживает перезагрузку страницы.
+  useEffect(() => {
+    writeStorage(SESSION_STORAGE_KEY, serializeSession(state));
+  }, [state]);
 
   return (
     <CalculatorStateContext value={state}>
